@@ -38,6 +38,8 @@ exports.createCar = (req, res) => {
 
 exports.getCar = (req, res) => {
 
+
+
     res.status(200).json({
         message: "Araç bulundu",
         car: req.car,
@@ -45,8 +47,21 @@ exports.getCar = (req, res) => {
 };
 //bir aracı güncelle
 exports.updateCar = (req, res) => {
+    //isteğin body kısmındaki güncellenicek değerleri al
+    const updatedData = req.body;
+
+    //aracın güncel değerine sahip yeni bir nesne oluştur
+    const updatedCar = { ...req.car, ...updatedData }
+    //güncellencek elamanın sırasını bul
+    const index = cars.findIndex((car) => car.id === updatedCar.id)
+    //dizideki eski aracın yerine yeni aracı koy
+    cars.splice(index, 1, updatedCar)
+    //json dosyasını güncelle
+    write(cars)
+    //client'a cevap gönder
     res.status(200).json({
         message: "Araç güncellendi",
+        car: updatedCar,
     });
 };
 
