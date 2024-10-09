@@ -7,20 +7,18 @@ const {
     updateCar,
     createCar,
 } = require("./controllers");
+const { logger } = require("./middleware");
 
 //kurulum
 
 const app = express();
 const PORT = 3000;
 
-//route/endpoint 'leri tanımlama
+//Middleware (arayazılım)
+app.use(logger);
 
-// app.get("/api/v1/cars", getAllCars);
-// app.post("/api/v1/cars", createCar);
-
-// app.get("/api/v1/cars/:id", getCar);
-// app.patch("api/v1/cars/:kimlik", updateCar);
-// app.delete("api/v1/cars/:id", deleteCar);
+// istekleri body/header/ param bölümlerine işleyen mw
+app.use(express.json())
 
 //end pointleri tanımlamada 2. yöntem
 app.route("/api/v1/cars").get(getAllCars).post(createCar);
