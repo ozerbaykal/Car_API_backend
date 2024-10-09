@@ -37,9 +37,11 @@ exports.createCar = (req, res) => {
 //bir aracı al
 
 exports.getCar = (req, res) => {
+
     res.status(200).json({
         message: "Araç bulundu",
-    });
+        car: req.car,
+    })
 };
 //bir aracı güncelle
 exports.updateCar = (req, res) => {
@@ -51,7 +53,17 @@ exports.updateCar = (req, res) => {
 //bir aracı sil
 
 exports.deleteCar = (req, res) => {
-    res.status(203).json({
+
+
+
+    //İd si gelen aracı diziden kaldır
+    cars = cars.filter((car) => car.id !== req.params.id)
+
+    //json dosyasını güncelle
+    write(cars)
+
+    //client' a cevap gönder
+    res.status(204).json({
         message: "Araç silindi",
     });
 };

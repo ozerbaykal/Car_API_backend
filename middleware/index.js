@@ -7,3 +7,4 @@ exports.logger = (req, res, next) => {
     //ara yazılımdan sonra çalışacak olan fonk çalıssın
     next()
 }
+
